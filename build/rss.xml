@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Notes of zf2timo</title>
+        <link></link>
+        <description>RSS feed for Notes of zf2timo</description>
+        <atom:link href="/rss.xml" rel="self" type="application/rss+xml" />
+                    <item>
+                <title>Zend MVC Expressive Bridge</title>
+                <description><![CDATA[<p>In this blog post, i'd like to promote my zf-mvc-expressive-bridge Module.</p>
+
+<h2>Reason</h2>
+
+<p>For a private Project i needed the Zend\InputFilter to validate all of the User Input. While
+figuring out, how to integrate zend PluginManager into a Expressive application, i realized it
+isn't easy as expected.</p>
+
+<p>After a Short Chat with Matthew, it was clear: I have to create Factories by myself to initialize
+the PluginManager as the "default" Factories stay in the Zend\MVC Package.</p>
+
+<p>So i thought there a more Projects, which encounter the same Problem. And the idea of zf-mvc-expressive-bridge was born.</p>
+
+<h2>Realisation</h2>
+
+<p>As noted, the Problem are the Factories laying in the Zend\MVC Package. Of course, i could just install this Package
+and use only the needed Factories.
+But my application is build with Zend Expressive and not Zend MVC so its don't feels right.</p>
+
+<p>Because the needed Factories already exists, this Package only extracts the PluginManager Factories from Zend\MVC
+Package. That's it. So all unused classes arn't downloaded.</p>
+
+<h2>Lifetime</h2>
+
+<p>In the Chat with Matthew, he noted, that the Problem with the Factories are known and the Solution is on the todo list.
+When the Task is done, the zf-mvc-expressive-bridge is deprecated immediately and the use should switch to Factories
+provided by the Package (e.g. Zend\InputFilter).</p>
+
+<h2>Conclusion</h2>
+
+<p>Hopefully with the zf-mvc-expressive-bridge Package i helped someone and saved some work.</p>
+]]></description>
+                <link>/2016/03/29/zend-mvc-expressive-bridge</link>
+                <pubDate>Tue, 29 Mar 2016 00:00:00 +0000</pubDate>
+                <guid>/2016/03/29/zend-mvc-expressive-bridge</guid>
+            </item>
+            </channel>
+</rss>
