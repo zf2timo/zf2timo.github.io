@@ -1,13 +1,13 @@
 ---
-title: Supporting Zend Service Manager Factories for V2 and V3
+title: Supporting Zend ServiceManager Factories for V2 and V3
 tags: [zend, factory]
 categories: [development]
 
 ---
 
 When creating a module it can be useful to support Zend ServiceManager Version V2 and V3.
-I faced the situation, because my Module had to work in an Application based on Zend 2.4 and another on Zend 3.0. So if we
-look at the `FactoryInterface` in both Version, we easily see the Problem:
+I dealt with this problem a few days ago: my module had to work in two application based - one based on Zend 2.4 and the
+other one based on Zend 3.0. When looking at the `FactoryInterface` in both version, we easily see the problem:
 
 ~~~php
 namespace Zend\ServiceManager\Factory;
@@ -32,9 +32,11 @@ interface FactoryInterface
 }
 ~~~
 As you can see, the Interface was moved into another Namespace - which was the right decision. But as a Module creator,
-you can't implement both Interfaces. Of course, one of the Versions will always be missing and it leads into a PHP Fatal Error.
+you can't implement both Interfaces. If you do so, one of the versions will always be missing and it leads into a 
+PHP Fatal Error.
 
-To solve the Problem just implement non of the `FactoryInterface`'s and manually create the Methods like in this example:
+To solve the problem just implement none of the `FactoryInterface`'s and manually create the methods as seen in the 
+example below:
 ~~~php
 namespace Foo;
 
@@ -53,10 +55,10 @@ class FooFactory
     }
 }
 ~~~
-Please notice, i also removed the type Hinting from the Methods. This allows us to pass the ServiceManger V2 into the
-`__invoke` Method.
+Please notice, I also removed the type Hinting from the methods. This allows us to pass the ServiceManger V2 into the
+`__invoke` method.
 
 ## Why dose it works
 
-This is really simple. The Service Manager checks in both Versions if the instantiated Factory supports the required Method.
-If the Method exists for the installed Version, it assumes, the Method is the factory method and calls it.
+This is really simple. The ServiceManager checks in both versions if the instantiated Factory supports the required method.
+If the method exists in the installed version, the ServiceManager assumes that the method is the factory method and executes it.
