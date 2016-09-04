@@ -13,6 +13,18 @@ article header {
     margin-bottom: 10px;
 }
 
+article.post p {
+    font-family: "Linux Libertine";
+    font-weight: 400;
+    font-size: 1.375em;
+    line-height: 1.2em;
+}
+
+article.post p code {
+    background-color: #dbdbdb;
+    padding: 0.1em 0.2em;
+}
+
 h4 small
 {
     display: block;
