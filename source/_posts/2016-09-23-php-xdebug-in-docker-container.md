@@ -1,5 +1,5 @@
 ---
-title: Supporting Zend ServiceManager Factories for V2 and V3
+title: PHP xdebug in docker container
 tags: [docker, xdebug]
 categories: [development]
 
