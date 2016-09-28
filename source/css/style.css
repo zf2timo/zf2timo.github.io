@@ -25,6 +25,11 @@ article.post p code {
     padding: 0.1em 0.2em;
 }
 
+article.post .categories,
+article.post .tags {
+    font-size: 1em;
+}
+
 h4 small
 {
     display: block;

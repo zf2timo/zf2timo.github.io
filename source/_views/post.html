@@ -12,21 +12,27 @@
         <div>
             {{ page.blocks.content|raw }}
         </div>
-        {% if page.categories %}
-            <p class="categories">
-            Categories:
-            {% for category in page.categories %}
-            <a href="{{ site.url }}/blog/categories/{{ category|url_encode(true) }}">{{ category }}</a>{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            </p>
-        {% endif %}
-        {% if page.tags %}
-            <p class="tags">
-            Tags:
-            {% for tag in page.tags %}
-            <a href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}
-            {% endfor %}
-            </p>
+        {% if page.categories or page.tags %}
+        <div class="well well-sm">
+            <div class="row">
+                {% if page.categories %}
+                <p class="col-md-6 categories">
+                Categories:
+                {% for category in page.categories %}
+                <a href="{{ site.url }}/blog/categories/{{ category|url_encode(true) }}">{{ category }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+                </p>
+                {% endif %}
+                {% if page.tags %}
+                <p class="col-md-6 tags">
+                Tags:
+                {% for tag in page.tags %}
+                <a href="{{ site.url }}/blog/tags/{{ tag|url_encode(true) }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+        </div>
         {% endif %}
 
         {% if page.previous_post or page.next_post %}
