@@ -37,6 +37,15 @@ h4 small
     color: #888;
 }
 
+.page-footer {
+    background-color: #1d73b8;
+    color: #fff;
+    margin-top: 2.5em;
+    padding: 1em 1em;
+    border-radius:  15px 15px 0 0;
+}
+
+
 @media (max-width: 767px) {
     .sidebar {
         padding-top: 30px;
@@ -45,6 +54,5 @@ h4 small
 @media (min-width: 980px) {
     body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        padding-bottom: 40px;
     }
 }
