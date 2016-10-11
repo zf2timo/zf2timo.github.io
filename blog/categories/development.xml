@@ -3,9 +3,68 @@
     <title><![CDATA[zf2timo dev notes]]></title>
     <link href="/blog/categories/development.xml" rel="self"/>
     <link href="/"/>
-    <updated>2016-09-29T22:47:25+02:00</updated>
+    <updated>2016-10-11T19:45:09+02:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Blog publishing on Github with Sculpin]]></title>
+            <link href="/blog/2016/10/07/blog-publishing-on-github-with-sculpin"/>
+            <updated>2016-10-07T00:00:00+02:00</updated>
+            <id>/blog/2016/10/07/blog-publishing-on-github-with-sculpin</id>
+            <content type="html"><![CDATA[<p>There is a great feature on Github to easily publish a static HTML Page on its servers - like this one you are currently 
+reading on. Read through my documentation to find out what my setup and publishing process looks like.</p>
+
+<h2 id="generating-the-static-page">Generating the static Page</h2>
+
+<p>A perfect addition to Github Sites are static Site generators. These tools convert markdown files into HTML files. 
+Github promotes Jekyll as a site generator, but you have to hassle with Ruby, therefore I decided to use <a href="https://sculpin.io/">Sculpin</a>,
+which is written in PHP that is already installed on all of my Workstations. And I am the most experienced with PHP.</p>
+
+<p>After the installation via composer a local server can be started to watch the changes:</p>
+
+<pre><code class="bash">$ ./vendor/bin/sculpin generate --watch --server
+</code></pre>
+
+<p>This server can be accessed via <a href="http://localhost:8000">localhost:8000</a> to view the latest version of the site.
+If a change is made in the layout or a post, sculpin re-generates the site automatically for you.</p>
+
+<p>When it's done, new repositories are needed on Github.</p>
+
+<h2 id="preparations-and-limitations">Preparations and Limitations</h2>
+
+<p>The site will be published in an own Repository with a defined naming scheme. These have to be <code>$username.github.io</code> - 
+in my case it's <a href="zf2timo.github.io"><code>zf2timo.github.io</code></a>. This name is also the domain name to browse through the blog.</p>
+
+<p>Since I have a simple user Account, the source of the Site has to be in the root of the master branch. There are 
+<a href="https://help.github.com/articles/user-organization-and-project-pages/">also options</a> to publish into a sub-folder, 
+but these are only available for organisations.
+But as I wanted to have the generated site separated from the configuration files for sculpin, too, I had to look 
+for another way. 
+I found the solution in creating another repository - named <a href="https://github.com/zf2timo/blog-generator"><code>blog-generator</code></a> - 
+where all the files for sculpins are versioned.</p>
+
+<p>Now it's time to combine these two repositories.</p>
+
+<h2 id="publishing-to-github">Publishing to Github</h2>
+
+<p>My process to publish the blog involves the following steps:</p>
+
+<ul>
+<li>switching to the repository <code>blog-generator</code></li>
+<li>cloning the <code>zf2timo.github.io</code> repository in a sub-folder, when its not exists</li>
+<li>generating the new html files with <code>sculpin</code></li>
+<li>copying them into the <code>zf2timo.github.io</code> folder</li>
+<li>switching in the sub-folder of <code>zf2timo.github.io</code></li>
+<li>committing and pushing all changes to Github</li>
+</ul>
+
+<p>In the moment of pushing, the updated version is published (I am sure, there are running some tasks in the background 
+on Github, but I didn't noticed a delay yet).</p>
+
+<p>Because this are always the sames steps, I created the <a href="https://github.com/zf2timo/blog-generator/blob/b0aaf4f08963f42aabe24fde3b4e1952fb7e5d79/publish.sh"><code>publish.sh</code></a> 
+file, that do all this steps for me and I just have to execute it.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[PHP xdebug in docker container]]></title>
             <link href="/blog/2016/09/23/php-xdebug-in-docker-container"/>
