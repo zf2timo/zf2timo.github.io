@@ -2,9 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc></loc>
-    <lastmod>2016-10-11</lastmod>
+    <lastmod>2016-11-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
+  </url>
+    <url>
+    <loc>/blog/2016/11/20/automatically-updating-host-file</loc>
+    <lastmod>2016-11-20T00:00:00+01:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
     <url>
     <loc>/blog/2016/10/07/blog-publishing-on-github-with-sculpin</loc>
@@ -21,6 +27,12 @@
     <url>
     <loc>/blog/2016/09/04/Supporting-Zend-Service-Manager-Factories-for-V2-and-V3</loc>
     <lastmod>2016-09-04T00:00:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+    <url>
+    <loc>/_posts/2016-11-06-automatically-updating-host-file.md</loc>
+    <lastmod>2016-11-06T00:00:00+01:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

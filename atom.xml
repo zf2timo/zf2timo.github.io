@@ -3,9 +3,38 @@
     <title><![CDATA[zf2timo dev notes]]></title>
     <link href="/atom.xml" rel="self"/>
     <link href="/"/>
-    <updated>2016-10-11T19:45:09+02:00</updated>
+    <updated>2016-11-21T15:43:22+01:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Automatically updating host file]]></title>
+            <link href="/blog/2016/11/20/automatically-updating-host-file"/>
+            <updated>2016-11-20T00:00:00+01:00</updated>
+            <id>/blog/2016/11/20/automatically-updating-host-file</id>
+            <content type="html"><![CDATA[<h1 id="make-the-internet-green-again">Make the internet green again</h1>
+
+<p>These days most of the internet users use Browser Plugins to block supsicious ad and/or prevent tracking mechanism or similar from working. The most popular plugins are AdBlocker Plus UBlock, NoScript, Privacy Badger - just to name a few. A bit disadvantageous of using your plugin of choice is the mandatory installation in every browser that is used - and therefor additionally settings have to be made several times. Can be a bit stressfull when you ask me.</p>
+
+<p>An alternative way to block suspicious servers is to make use of local host files and redirect the requests to the localhost. But with the huge amount of ad-, tracking- and other mistrustful servers out there it would take a lot of time and effort to to keep the <code>host</code> file up to date.</p>
+
+<p>Thankfully <a href="http://someonewhocares.org">Dan Pollock</a> has done this or rather is still updating the list of mistrustful servers multiple times a week. And thankfully he allows everyone to use this file.</p>
+
+<p>With a few commands on Linux operating system this process of updating can be automated:</p>
+
+<pre><code class="bash">wget -O someonewhocares.hosts http://someonewhocares.org/hosts/hosts; cat someonewhocares.hosts /etc/hosts | grep -v -e "^[[:space:]]*$" | grep -v -e "^#" | sort | uniq &gt; /etc/hosts; rm someonewhocares.hosts
+</code></pre>
+
+<p>This is a really long command, which we don't like to enter every time a new version of the list is published. Therefore let us automate the process with a cronjob:</p>
+
+<pre><code class="bash">52,22 */4 * * * wget -O someonewhocares.hosts http://someonewhocares.org/hosts/hosts; cat someonewhocares.hosts /etc/hosts | grep -v -e "^[[:space:]]*$" | grep -v -e "^#" | sort | uniq &gt; /etc/hosts; rm someonewhocares.hosts &gt;&gt; /var/log/cron-host-file-update.log 2&gt;&amp;1
+</code></pre>
+
+<p>Please note that this cronjob has to be registered for the root user. Other users can not write to the <code>host</code> file by default.
+Also the time schedule should match you're usage behaviour.</p>
+
+<p>I think, this is a easy solution to block odd server.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Blog publishing on Github with Sculpin]]></title>
             <link href="/blog/2016/10/07/blog-publishing-on-github-with-sculpin"/>
@@ -162,5 +191,12 @@ class FooFactory
 <p>This is really simple. The ServiceManager checks in both versions if the instantiated Factory supports the required method.
 If the method exists in the installed version, the ServiceManager assumes that the method is the factory method and executes it.</p>
 ]]></content>
+        </entry>
+            <entry>
+            <title type="html"><![CDATA[]]></title>
+            <link href="/_posts/2016-11-06-automatically-updating-host-file.md"/>
+            <updated>2016-11-06T00:00:00+01:00</updated>
+            <id>/_posts/2016-11-06-automatically-updating-host-file.md</id>
+            <content type="html"><![CDATA[]]></content>
         </entry>
     </feed>
