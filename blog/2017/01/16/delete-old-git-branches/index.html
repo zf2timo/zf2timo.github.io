@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Category Archive "security" &mdash; zf2timo dev notes &mdash; To Get You Started</title>
+    <title>Delete old git branches &mdash; zf2timo dev notes &mdash; To Get You Started</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/solarized-dark.min.css">
     <link href="/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     <link href="/css/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
@@ -44,14 +44,60 @@
     <div class="row-grid page-content">
         <div class="row">
             <div class="col-md-10">
-                <h2>"security"</h2>
-        <h3>November 2016</h3>
-<article>
-  <div><a href="/blog/2016/11/20/automatically-updating-host-file">Automatically updating host file</a></div>
-</article>
+                    <article class="post">
+        <header>
+            <h2>Delete old git branches <small>post</small></h2>
+        </header>
+        <div>
+            <h1 id="delete-old-git-branches">Delete old git branches</h1>
 
-<div>
-</div>
+<p>When working with git you ~~should~~ have to use branches. But over the time, there will be a lot of branches that
+arn't needed anymore.</p>
+
+<p>To get rid of this waste, i created a script to delete them:</p>
+
+<pre><code class="bash">#!/usr/bin/env bash
+
+BRANCHES="$(git branch --merged | grep -v "\*" | grep -v "master" | grep -v "develop")"
+
+if [ -z $BRANCHES ]; then
+    echo "No branch can deleted safely"
+    exit 1;
+fi
+
+echo "The following branches will be deleted:"
+echo $BRANCHES
+echo "Are you sure? (y or n)"
+read ANSWER
+
+if [ $ANSWER = "y" ]; then
+    echo $BRANCHES | xargs -n 1 git branch -d
+fi
+</code></pre>
+
+<p>It selects all branches which are merged into master branch and after a confirmation, they will be deleted.</p>
+
+        </div>
+                <div class="well well-sm">
+            <div class="row">
+                                <p class="col-md-6 categories">
+                Categories:
+                                <a href="/blog/categories/development">development</a>                                </p>
+                                                <p class="col-md-6 tags">
+                Tags:
+                                <a href="/blog/tags/git">git</a>,                                 <a href="/blog/tags/tip">tip</a>                                </p>
+                            </div>
+        </div>
+        
+                    <nav class="article">
+                <ul>
+                                                                <li>Previous: <a class="previous" href="/blog/2016/11/20/automatically-updating-host-file" title="Automatically updating host file"><span class="title">Automatically updating host file</span></a></li>
+                                    </ul>
+            </nav>
+            </article>
+
+
+
             </div>
             <div class="col-md-2 sidebar">
                 <div class="well">

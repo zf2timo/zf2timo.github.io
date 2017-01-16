@@ -46,6 +46,44 @@
             <div class="col-md-10">
                     <article class="post">
         <header>
+            <h2><a href="/blog/2016/09/23/php-xdebug-in-docker-container">PHP xdebug in docker container</a></h2>
+        </header>
+        <div>
+            <p>When you are using Docker as a development environment, you face the situation to debug your php code with xdebug soon
+or later.
+All yo need to do, is to change your <code>Dockerfile</code> of your php container like this:</p>
+
+<pre><code class="dockerfile">FROM php:7.0-fpm
+
+RUN docker-php-ext-install pdo_mysql \
+    &amp;&amp; docker-php-ext-install json
+
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug
+RUN sed -i '1 a xdebug.remote_autostart=true' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN sed -i '1 a xdebug.remote_mode=req' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN sed -i '1 a xdebug.remote_handler=dbgp' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN sed -i '1 a xdebug.remote_connect_back=1 ' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN sed -i '1 a xdebug.remote_port=9000' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN sed -i '1 a xdebug.remote_host=192.168.0.196' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN sed -i '1 a xdebug.remote_enable=1' /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+</code></pre>
+
+<p>If your container was already running, you have to stop it and start it again</p>
+
+<pre><code class="bash">$ for id in $(sudo docker ps | grep -v CONTAINER | awk '{print $1}') ; do sudo docker stop $id ; done
+$ sudo docker-compose up -d
+</code></pre>
+
+<p>And that's it.</p>
+
+        </div>
+                    <p class="tags">
+            Tags:
+                        <a href="/blog/tags/docker">docker</a>,                         <a href="/blog/tags/xdebug">xdebug</a>                        </p>
+            </article>
+    <article class="post">
+        <header>
             <h2><a href="/blog/2016/09/04/Supporting-Zend-Service-Manager-Factories-for-V2-and-V3">Supporting Zend ServiceManager Factories for V2 and V3</a></h2>
         </header>
         <div>
@@ -112,14 +150,6 @@ If the method exists in the installed version, the ServiceManager assumes that t
             Tags:
                         <a href="/blog/tags/zend">zend</a>,                         <a href="/blog/tags/factory">factory</a>                        </p>
             </article>
-    <article class="post">
-        <header>
-            <h2><a href="/_posts/2016-11-06-automatically-updating-host-file.md"></a></h2>
-        </header>
-        <div>
-            
-        </div>
-            </article>
     <nav>
         <a href="/.">Newer Posts</a><br />
         <br />
@@ -136,7 +166,7 @@ If the method exists in the installed version, the ServiceManager assumes that t
     <div class="row page-footer">
         <div class="col-md-12">
             <footer>
-                &copy; 2016 @zf2timo
+                &copy; 2017 @zf2timo
             </footer>
         </div>
     </div>

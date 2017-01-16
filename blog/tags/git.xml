@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><![CDATA[zf2timo dev notes]]></title>
+    <link href="/blog/tags/git.xml" rel="self"/>
+    <link href="/"/>
+    <updated>2017-01-16T08:41:42+01:00</updated>
+    <id>/</id>
+        <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Delete old git branches]]></title>
+            <link href="/blog/2017/01/16/delete-old-git-branches"/>
+            <updated>2017-01-16T00:00:00+01:00</updated>
+            <id>/blog/2017/01/16/delete-old-git-branches</id>
+            <content type="html"><![CDATA[<h1 id="delete-old-git-branches">Delete old git branches</h1>
+
+<p>When working with git you ~~should~~ have to use branches. But over the time, there will be a lot of branches that
+arn't needed anymore.</p>
+
+<p>To get rid of this waste, i created a script to delete them:</p>
+
+<pre><code class="bash">#!/usr/bin/env bash
+
+BRANCHES="$(git branch --merged | grep -v "\*" | grep -v "master" | grep -v "develop")"
+
+if [ -z $BRANCHES ]; then
+    echo "No branch can deleted safely"
+    exit 1;
+fi
+
+echo "The following branches will be deleted:"
+echo $BRANCHES
+echo "Are you sure? (y or n)"
+read ANSWER
+
+if [ $ANSWER = "y" ]; then
+    echo $BRANCHES | xargs -n 1 git branch -d
+fi
+</code></pre>
+
+<p>It selects all branches which are merged into master branch and after a confirmation, they will be deleted.</p>
+]]></content>
+        </entry>
+    </feed>
