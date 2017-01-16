@@ -3,7 +3,7 @@
     <title><![CDATA[zf2timo dev notes]]></title>
     <link href="/blog/tags/git.xml" rel="self"/>
     <link href="/"/>
-    <updated>2017-01-16T08:41:42+01:00</updated>
+    <updated>2017-01-16T08:53:53+01:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -13,7 +13,7 @@
             <id>/blog/2017/01/16/delete-old-git-branches</id>
             <content type="html"><![CDATA[<h1 id="delete-old-git-branches">Delete old git branches</h1>
 
-<p>When working with git you ~~should~~ have to use branches. But over the time, there will be a lot of branches that
+<p>When working with git you <s>should</s> have to use branches. But over the time, there will be a lot of branches that
 arn't needed anymore.</p>
 
 <p>To get rid of this waste, i created a script to delete them:</p>
