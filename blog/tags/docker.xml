@@ -3,7 +3,7 @@
     <title><![CDATA[zf2timo dev notes]]></title>
     <link href="/blog/tags/docker.xml" rel="self"/>
     <link href="/"/>
-    <updated>2017-12-14T14:56:43+01:00</updated>
+    <updated>2017-12-14T14:59:57+01:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
             <entry>
@@ -30,7 +30,7 @@ I did not created a config like this one.</p>
 My NGINX did not send a Server name in the response. For this reason my IDE was not able to create a proper configuration and 
 map the local directories to remote directories.</p>
 
-<p>To Fix the problem only a single line was missing in my <code>/etc//nginx/sites-available/default.conf</code></p>
+<p>To Fix the problem only a single line was missing in my <code>/etc/nginx/sites-available/default.conf</code></p>
 
 <pre><code class="nginx">fastcgi_param SERVER_NAME $server_name;
 </code></pre>
