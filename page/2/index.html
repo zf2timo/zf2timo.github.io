@@ -46,6 +46,39 @@
             <div class="col-md-10">
                     <article class="post">
         <header>
+            <h2><a href="/blog/2016/11/20/automatically-updating-host-file">Automatically updating host file</a></h2>
+        </header>
+        <div>
+            <h1 id="make-the-internet-green-again">Make the internet green again</h1>
+
+<p>These days most of the internet users use Browser Plugins to block supsicious ad and/or prevent tracking mechanism or similar from working. The most popular plugins are AdBlocker Plus UBlock, NoScript, Privacy Badger - just to name a few. A bit disadvantageous of using your plugin of choice is the mandatory installation in every browser that is used - and therefor additionally settings have to be made several times. Can be a bit stressfull when you ask me.</p>
+
+<p>An alternative way to block suspicious servers is to make use of local host files and redirect the requests to the localhost. But with the huge amount of ad-, tracking- and other mistrustful servers out there it would take a lot of time and effort to to keep the <code>host</code> file up to date.</p>
+
+<p>Thankfully <a href="http://someonewhocares.org">Dan Pollock</a> has done this or rather is still updating the list of mistrustful servers multiple times a week. And thankfully he allows everyone to use this file.</p>
+
+<p>With a few commands on Linux operating system this process of updating can be automated:</p>
+
+<pre><code class="bash">wget -O someonewhocares.hosts http://someonewhocares.org/hosts/hosts; cat someonewhocares.hosts /etc/hosts | grep -v -e "^[[:space:]]*$" | grep -v -e "^#" | sort | uniq &gt; /etc/hosts; rm someonewhocares.hosts
+</code></pre>
+
+<p>This is a really long command, which we don't like to enter every time a new version of the list is published. Therefore let us automate the process with a cronjob:</p>
+
+<pre><code class="bash">52,22 */4 * * * wget -O someonewhocares.hosts http://someonewhocares.org/hosts/hosts; cat someonewhocares.hosts /etc/hosts | grep -v -e "^[[:space:]]*$" | grep -v -e "^#" | sort | uniq &gt; /etc/hosts; rm someonewhocares.hosts &gt;&gt; /var/log/cron-host-file-update.log 2&gt;&amp;1
+</code></pre>
+
+<p>Please note that this cronjob has to be registered for the root user. Other users can not write to the <code>host</code> file by default.
+Also the time schedule should match you're usage behaviour.</p>
+
+<p>I think, this is a easy solution to block odd server.</p>
+
+        </div>
+                    <p class="tags">
+            Tags:
+                        <a href="/blog/tags/ad-blocking">ad-blocking</a>,                         <a href="/blog/tags/host%20file">host file</a>,                         <a href="/blog/tags/automating">automating</a>                        </p>
+            </article>
+    <article class="post">
+        <header>
             <h2><a href="/blog/2016/10/07/blog-publishing-on-github-with-sculpin">Blog publishing on Github with Sculpin</a></h2>
         </header>
         <div>
@@ -145,77 +178,9 @@ $ sudo docker-compose up -d
             Tags:
                         <a href="/blog/tags/docker">docker</a>,                         <a href="/blog/tags/xdebug">xdebug</a>                        </p>
             </article>
-    <article class="post">
-        <header>
-            <h2><a href="/blog/2016/09/04/Supporting-Zend-Service-Manager-Factories-for-V2-and-V3">Supporting Zend ServiceManager Factories for V2 and V3</a></h2>
-        </header>
-        <div>
-            <p>When creating a module it can be useful to support Zend ServiceManager Version V2 and V3.
-I dealt with this problem a few days ago: my module had to work in two application based - one based on Zend 2.4 and the
-other one based on Zend 3.0. When looking at the <code>FactoryInterface</code> in both version, we easily see the problem:</p>
-
-<pre><code class="php">namespace Zend\ServiceManager\Factory;
-
-use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
-
-interface FactoryInterface
-{
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null);
-}
-</code></pre>
-
-<pre><code class="php">namespace Zend\ServiceManager;
-
-interface FactoryInterface
-{
-    public function createService(ServiceLocatorInterface $serviceLocator);
-}
-</code></pre>
-
-<p>As you can see, the Interface was moved into another Namespace - which was the right decision. But as a Module creator,
-you can't implement both Interfaces. If you do so, one of the versions will always be missing and it leads into a 
-PHP Fatal Error.</p>
-
-<p>To solve the problem just implement none of the <code>FactoryInterface</code>'s and manually create the methods as seen in the 
-example below:</p>
-
-<pre><code class="php">namespace Foo;
-
-class FooFactory
-{
-    // support for Zend Service Manager V3
-    public function __invoke($container, $requestedName, array $options = null)
-    {
-        return new Foo($container-&gt;get(SomeDependency::class));
-    }
-
-    // support for Zend Service Manager V2
-    public function createService($serviceLocator)
-    {
-        return $this-&gt;__invoke($serviceLocator, 'Foo\Foo');    
-    }
-}
-</code></pre>
-
-<p>Please notice, I also removed the type Hinting from the methods. This allows us to pass the ServiceManger V2 into the
-<code>__invoke</code> method.</p>
-
-<h2 id="why-dose-it-works">Why dose it works</h2>
-
-<p>This is really simple. The ServiceManager checks in both versions if the instantiated Factory supports the required method.
-If the method exists in the installed version, the ServiceManager assumes that the method is the factory method and executes it.</p>
-
-        </div>
-                    <p class="tags">
-            Tags:
-                        <a href="/blog/tags/zend">zend</a>,                         <a href="/blog/tags/factory">factory</a>                        </p>
-            </article>
     <nav>
         <a href="/.">Newer Posts</a><br />
-        <br />
+        <a href="/page/3">Older Posts</a><br />
     </nav>
             </div>
             <div class="col-md-2 sidebar">

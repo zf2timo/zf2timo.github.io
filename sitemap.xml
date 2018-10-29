@@ -7,6 +7,12 @@
     <priority>0.8</priority>
   </url>
     <url>
+    <loc>/blog/2018/10/26/delete-multiple-rabbitmq-queues</loc>
+    <lastmod>2018-10-26T00:00:00+02:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+    <url>
     <loc>/blog/2017/12/14/empty-server-name-in-xdebug</loc>
     <lastmod>2017-12-14T00:00:00+01:00</lastmod>
     <changefreq>weekly</changefreq>

@@ -3,9 +3,33 @@
     <title><![CDATA[zf2timo dev notes]]></title>
     <link href="/atom.xml" rel="self"/>
     <link href="/"/>
-    <updated>2018-10-29T08:26:48+01:00</updated>
+    <updated>2018-10-29T10:35:51+01:00</updated>
     <id>/</id>
         <generator uri="http://sculpin.io/">Sculpin</generator>
+            <entry>
+            <title type="html"><![CDATA[Delete multiple RabbitMQ Queues]]></title>
+            <link href="/blog/2018/10/26/delete-multiple-rabbitmq-queues"/>
+            <updated>2018-10-26T00:00:00+02:00</updated>
+            <id>/blog/2018/10/26/delete-multiple-rabbitmq-queues</id>
+            <content type="html"><![CDATA[<h1 id="delete-multiple-rabbitmq-queues">Delete multiple RabbitMQ Queues</h1>
+
+<p>RabbitMQ is a great tool to handle a lot of data and process them asynchronously. At my work, we have some programs, that
+create dynamically the queues. 
+But sometimes these queues where not processed - because of an error or when testing some changes locally. In this cases you
+have to remove the queues in another way. If this are thousands of queues, you don't want to do this manually.</p>
+
+<p>Thankfully RabbitMQ provides a useful console tool. This can be use to create a list of queues. With some additional bash
+magic all the queues can be delete in one go:</p>
+
+<pre><code class="bash">$ rabbitmqadmin -f tsv -q list queues name &gt; q.txt
+$ while read -r name; do rabbitmqadmin -q delete queue name="${name}"; done &lt; q.txt
+</code></pre>
+
+<p>This is only a minimal snipped. It can be extended with a <code>grep</code> to run an additional filter on the queue names. Or
+pass the <code>-V</code> parameter to <code>rabbitmqadmin</code> to limit everything to a specified vhost.
+There is a lot more to explore.</p>
+]]></content>
+        </entry>
             <entry>
             <title type="html"><![CDATA[Empty server name in XDEBUG]]></title>
             <link href="/blog/2017/12/14/empty-server-name-in-xdebug"/>
