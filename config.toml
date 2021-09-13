@@ -1,0 +1,4 @@
+baseURL = 'https://zf2timo.github.io/'
+languageCode = 'en-us'
+title = 'zf2timo dev notes'
+theme = "smigle"
