@@ -1,7 +1,7 @@
 ---
 title: "Delete Old Git Branches"
 date: 2017-01-16T18:42:54+02:00
-draft: true
+draft: false
 ---
 
 When working with git you should have to use branches. But over the time, there will be a lot of branches that aren't needed anymore.
