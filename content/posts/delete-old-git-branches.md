@@ -4,9 +4,9 @@ date: 2017-01-16T18:42:54+02:00
 draft: true
 ---
 
-When working with git you should have to use branches. But over the time, there will be a lot of branches that arn't needed anymore.
+When working with git you should have to use branches. But over the time, there will be a lot of branches that aren't needed anymore.
 
-To get rid of this waste, i created a script to delete them:
+To get rid of this waste, I created a script to delete them:
 ```bash
 #!/usr/bin/env bash
 
