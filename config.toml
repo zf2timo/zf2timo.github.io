@@ -4,7 +4,7 @@ title = 'zf2timo dev notes'
 theme = "smigle"
 
 [params]
-    subtitle = "Some develop on the web"
+    subtitle = "Some developer on the web"
     author = "zf2timo"
     brandIconFile = "images/zf2timo.png"
 
